@@ -1,0 +1,19 @@
+@model ServiceCenter
+@{
+    ViewData["Title"] = "Edit Service Center";
+}
+
+<h2>Edit Service Center</h2>
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Update" asp-route-id="@Model.Id" method="post" style="max-width:500px;">
+    <div class="mb-3"><label>Name</label><input asp-for="Name" class="form-control" /></div>
+    <div class="mb-3"><label>Phone</label><input asp-for="PhoneNumber" class="form-control" /></div>
+    <div class="mb-3"><label>Email</label><input asp-for="Email" class="form-control" /></div>
+    <div class="mb-3"><label>Address</label><input asp-for="Address" class="form-control" /></div>
+    <div class="mb-3 form-check">
+        <input asp-for="IsActive" class="form-check-input" checked />
+        <label class="form-check-label">Active</label>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+</form>

@@ -1,0 +1,49 @@
+@model Vehicle
+@{
+    ViewData["Title"] = "Edit Vehicle";
+}
+
+<h2>Edit Vehicle</h2>
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Update" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data" style="max-width:500px;">
+    <div class="mb-3">
+        <label>VIN</label>
+        <input asp-for="VIN" class="form-control" placeholder="17 characters, e.g. 1HGCM82633A004352" />
+        <span asp-validation-for="VIN" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label>License Plate</label>
+        <input asp-for="LicensePlate" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Make</label>
+        <input asp-for="Make" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Model</label>
+        <input asp-for="Model" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Year</label>
+        <input asp-for="Year" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Purchase Price</label>
+        <input asp-for="PurchasePrice" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Mileage</label>
+        <input asp-for="Mileage" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label>Status</label>
+        <select asp-for="Status" class="form-control" asp-items="Html.GetEnumSelectList<VehicleStatus>()"></select>
+    </div>
+    <div class="mb-3">
+        <label>Vehicle Image</label>
+        <input type="file" name="VehicleImage" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+</form>

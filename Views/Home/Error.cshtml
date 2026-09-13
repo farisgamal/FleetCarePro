@@ -1,0 +1,14 @@
+@{
+    ViewData["Title"] = "Error";
+    var code = ViewBag.StatusCode;
+}
+
+<div class="text-center mt-5">
+    <h1>Something went wrong 😕</h1>
+    @if (code is not null)
+    {
+        <h3>Status Code: @code</h3>
+    }
+    <p>The page you're looking for doesn't exist, or a server error occurred.</p>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Back to Home</a>
+</div>

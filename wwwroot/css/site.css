@@ -1,0 +1,185 @@
+/* =========================================================
+   FleetCare Pro — Custom Theme
+   Overrides Bootstrap 5 defaults with our own color palette,
+   fonts and button styles so it doesn't look like a stock
+   Bootstrap template.
+   ========================================================= */
+
+:root {
+    --brand-navy: #1B2A4A;      /* navbar / dark surfaces  */
+    --brand-primary: #3B5BDB;   /* create / main actions   */
+    --brand-primary-dark: #2F49B0;
+    --brand-success: #12A594;   /* save / approve          */
+    --brand-success-dark: #0E8579;
+    --brand-warning: #E8A33D;   /* edit                    */
+    --brand-warning-dark: #C6862A;
+    --brand-danger: #E05263;    /* delete / cancel         */
+    --brand-danger-dark: #C43C4D;
+    --brand-info: #4FB6C6;      /* details                 */
+    --brand-info-dark: #3A98A6;
+    --brand-bg: #F6F7FB;
+}
+
+body {
+    font-family: "Poppins", "Segoe UI", Tahoma, sans-serif;
+    background-color: var(--brand-bg);
+    color: #1F2937;
+}
+
+/* ---------- Navbar ---------- */
+.navbar.bg-dark {
+    background-color: var(--brand-navy) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: .5px;
+}
+
+.navbar .nav-link {
+    font-weight: 500;
+    opacity: .85;
+}
+
+.navbar .nav-link:hover {
+    opacity: 1;
+    text-decoration: underline;
+}
+
+/* ---------- Cards ---------- */
+.card {
+    border: none;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(27, 42, 74, 0.08);
+}
+
+.card-header {
+    border-radius: 14px 14px 0 0 !important;
+    font-weight: 600;
+    border: none;
+}
+
+/* ---------- Tables ---------- */
+.table {
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.table thead {
+    background-color: var(--brand-navy);
+}
+
+.table thead th {
+    color: #fff;
+    font-weight: 600;
+    border: none;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+    background-color: #F0F2FA;
+}
+
+/* ---------- Buttons: this is the part that matters most ---------- */
+.btn {
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    padding: .45rem 1rem;
+    transition: transform .05s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Create / Save / primary actions */
+.btn-primary, .btn-success {
+    background-color: var(--brand-success) !important;
+    color: #fff !important;
+}
+.btn-primary:hover, .btn-success:hover {
+    background-color: var(--brand-success-dark) !important;
+}
+
+/* Edit */
+.btn-warning {
+    background-color: var(--brand-warning) !important;
+    color: #fff !important;
+}
+.btn-warning:hover {
+    background-color: var(--brand-warning-dark) !important;
+    color: #fff !important;
+}
+
+/* Delete / Cancel */
+.btn-danger {
+    background-color: var(--brand-danger) !important;
+    color: #fff !important;
+}
+.btn-danger:hover {
+    background-color: var(--brand-danger-dark) !important;
+}
+
+/* Details */
+.btn-info {
+    background-color: var(--brand-info) !important;
+    color: #fff !important;
+}
+.btn-info:hover {
+    background-color: var(--brand-info-dark) !important;
+    color: #fff !important;
+}
+
+.btn-secondary {
+    background-color: #7C8797 !important;
+    color: #fff !important;
+}
+
+.btn-outline-primary {
+    color: var(--brand-primary) !important;
+    border: 1.5px solid var(--brand-primary) !important;
+    background: transparent !important;
+}
+.btn-outline-primary:hover {
+    background-color: var(--brand-primary) !important;
+    color: #fff !important;
+}
+
+/* ---------- Badges (status pills) ---------- */
+.badge {
+    border-radius: 20px;
+    padding: .4em .8em;
+    font-weight: 600;
+}
+.badge.bg-success  { background-color: var(--brand-success) !important; }
+.badge.bg-warning  { background-color: var(--brand-warning) !important; }
+.badge.bg-danger   { background-color: var(--brand-danger) !important; }
+.badge.bg-info     { background-color: var(--brand-info) !important; }
+.badge.bg-primary  { background-color: var(--brand-primary) !important; }
+.badge.bg-secondary{ background-color: #7C8797 !important; }
+
+/* ---------- Alerts ---------- */
+.alert-success {
+    background-color: #E4F7F5;
+    border: 1px solid var(--brand-success);
+    color: var(--brand-success-dark);
+    border-radius: 10px;
+}
+
+/* ---------- Forms ---------- */
+.form-control, .form-select, select.form-control {
+    border-radius: 8px;
+    border: 1.5px solid #DDE1EA;
+}
+.form-control:focus, .form-select:focus {
+    border-color: var(--brand-primary);
+    box-shadow: 0 0 0 .2rem rgba(59, 91, 219, .15);
+}
+
+label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: .3rem;
+}

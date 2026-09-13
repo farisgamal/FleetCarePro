@@ -1,0 +1,54 @@
+@model List<Vehicle>
+@{
+    ViewData["Title"] = "Vehicles List";
+}
+
+<div class="d-flex justify-content-between mb-3">
+    <h2>Vehicles List</h2>
+    <a asp-action="Create" class="btn btn-primary">Create New Vehicle</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>License Plate</th>
+            <th>Make</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Purchase Price</th>
+            <th>Status</th>
+            <th>Mileage</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var v in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(v.VehicleImageURL))
+                    {
+                        <img src="@v.VehicleImageURL" style="width:80px;height:60px;object-fit:cover;" />
+                    }
+                    else
+                    {
+                        <span class="text-muted">No Image</span>
+                    }
+                </td>
+                <td>@v.LicensePlate</td>
+                <td>@v.Make</td>
+                <td>@v.Model</td>
+                <td>@v.Year</td>
+                <td>@v.PurchasePrice.ToString("N2")</td>
+                <td>@v.Status</td>
+                <td>@v.Mileage</td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@v.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Details" asp-route-id="@v.Id" class="btn btn-sm btn-info">Details</a>
+                    <a asp-action="Delete" asp-route-id="@v.Id" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

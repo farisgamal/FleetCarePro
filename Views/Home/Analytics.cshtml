@@ -1,0 +1,45 @@
+@{
+    ViewData["Title"] = "Fleet Analytics & Reports";
+    var totalCostPerVehicle = ViewBag.TotalCostPerVehicle as IEnumerable<dynamic>;
+}
+
+<h2 class="mb-4">Fleet Analytics &amp; Reports</h2>
+
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">Total Cost Per Vehicle</div>
+            <table class="table mb-0">
+                <thead>
+                    <tr><th>License Plate</th><th>Total Cost ($)</th></tr>
+                </thead>
+                <tbody>
+                    @if (totalCostPerVehicle is null || !totalCostPerVehicle.Any())
+                    {
+                        <tr><td colspan="2">No service records yet</td></tr>
+                    }
+                    else
+                    {
+                        foreach (var v in totalCostPerVehicle)
+                        {
+                            <tr>
+                                <td>@v.LicensePlate</td>
+                                <td>@(((decimal)v.TotalCost).ToString("N2"))</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header bg-success text-white">Most Used Service Center</div>
+            <div class="card-body">
+                <h4>@ViewBag.MostUsedCenterName</h4>
+                <p class="mb-0">Total Visits: <strong>@ViewBag.MostUsedCenterVisits</strong></p>
+            </div>
+        </div>
+    </div>
+</div>

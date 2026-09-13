@@ -1,0 +1,24 @@
+@model List<Vehicle>
+@{
+    ViewData["Title"] = "Home";
+}
+
+<h2 class="mb-4">Dashboard - FleetCare Pro</h2>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        @await Component.InvokeAsync("FleetCostSummary")
+    </div>
+    <div class="col-md-6">
+        @await Component.InvokeAsync("OverdueMaintenance")
+    </div>
+</div>
+
+<h4>Fleet Overview</h4>
+<div class="d-flex flex-wrap gap-3">
+    @foreach (var v in Model)
+    {
+        @* Module 4: reusing the _VehicleCard Partial View here on the dashboard *@
+        <partial name="_VehicleCard" model="v" />
+    }
+</div>

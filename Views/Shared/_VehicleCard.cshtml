@@ -1,0 +1,17 @@
+@model Vehicle
+
+<div class="card mb-3" style="width: 18rem;">
+    @if (!string.IsNullOrEmpty(Model.VehicleImageURL))
+    {
+        <img src="@Model.VehicleImageURL" class="card-img-top" alt="@Model.Make">
+    }
+    <div class="card-body">
+        <h5 class="card-title">@Model.Make @Model.Model (@Model.Year)</h5>
+        <p class="card-text">
+            License Plate: @Model.LicensePlate <br />
+            Status: <span class="badge bg-info">@Model.Status</span> <br />
+            Mileage: @Model.Mileage km
+        </p>
+        <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">Details</a>
+    </div>
+</div>

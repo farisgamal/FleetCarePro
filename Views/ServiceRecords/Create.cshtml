@@ -1,0 +1,111 @@
+@model ServiceRecordViewModel
+@{
+    ViewData["Title"] = "Create Service Record";
+    var vehicles = ViewBag.Vehicles as List<Vehicle>;
+    var centers = ViewBag.ServiceCenters as List<ServiceCenter>;
+    var categories = ViewBag.ServiceCategories as List<ServiceCategory>;
+}
+
+<h2>Create New Service Record</h2>
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label>Vehicle</label>
+            <select name="VehicleId" class="form-control">
+                @foreach (var v in vehicles!)
+                {
+                    <option value="@v.Id">@v.Make @v.Model - @v.LicensePlate</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label>Service Center</label>
+            <select name="ServiceCenterId" class="form-control">
+                @foreach (var c in centers!)
+                {
+                    <option value="@c.Id">@c.Name</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label>Service Date</label>
+            <input type="date" name="ServiceDate" class="form-control" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label>Current Mileage</label>
+            <input type="number" name="CurrentMileage" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label>Invoice Document (PDF or image, max 5MB)</label>
+            <input type="file" name="InvoiceDocument" class="form-control" accept=".pdf,.jpg,.jpeg,.png" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label>Notes</label>
+        <textarea name="Notes" class="form-control"></textarea>
+    </div>
+
+    <hr />
+    <h4>Service Line Items</h4>
+
+    <table class="table" id="lineItemsTable">
+        <thead>
+            <tr><th>Service Category</th><th>Description</th><th>Cost</th><th></th></tr>
+        </thead>
+        <tbody id="lineItemsBody">
+            <!-- Rows are added dynamically here via JavaScript -->
+        </tbody>
+    </table>
+
+    <button type="button" id="addLineItemBtn" class="btn btn-outline-primary btn-sm mb-3">+ Add Line Item</button>
+    <br />
+    <button type="submit" class="btn btn-success">Save Service Record</button>
+</form>
+
+@section Scripts {
+    <script>
+        // Module 3: Nested Form Submission -> dynamically add service line items
+        // We use the name LineItems[index].Field so ASP.NET Core's Model Binding
+        // can automatically bind them to the List<ServiceLineItemViewModel>
+        const categories = @Json.Serialize(categories!.Select(c => new { c.Id, c.CategoryName }));
+
+        let rowIndex = 0;
+        const tbody = document.getElementById('lineItemsBody');
+
+        function addLineItemRow() {
+            const row = document.createElement('tr');
+
+            let options = categories.map(c => `<option value="${c.id}">${c.categoryName}</option>`).join('');
+
+            row.innerHTML = `
+                <td>
+                    <select name="LineItems[${rowIndex}].ServiceCategoryId" class="form-control">
+                        ${options}
+                    </select>
+                </td>
+                <td><input name="LineItems[${rowIndex}].Description" class="form-control" /></td>
+                <td><input name="LineItems[${rowIndex}].Cost" type="number" step="0.01" class="form-control cost-input" /></td>
+                <td><button type="button" class="btn btn-danger btn-sm removeRowBtn">Remove</button></td>
+            `;
+
+            tbody.appendChild(row);
+
+            row.querySelector('.removeRowBtn').addEventListener('click', function () {
+                row.remove();
+            });
+
+            rowIndex++;
+        }
+
+        document.getElementById('addLineItemBtn').addEventListener('click', addLineItemRow);
+
+        // start with one row by default
+        addLineItemRow();
+    </script>
+}

@@ -1,0 +1,31 @@
+@model List<ServiceCenter>
+@{
+    ViewData["Title"] = "Service Centers";
+}
+
+<div class="d-flex justify-content-between mb-3">
+    <h2>Service Centers</h2>
+    <a asp-action="Create" class="btn btn-success">+ Add Service Center</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr><th>Name</th><th>Phone</th><th>Email</th><th>Address</th><th>Active?</th><th></th></tr>
+    </thead>
+    <tbody>
+        @foreach (var sc in Model)
+        {
+            <tr>
+                <td>@sc.Name</td>
+                <td>@sc.PhoneNumber</td>
+                <td>@sc.Email</td>
+                <td>@sc.Address</td>
+                <td>@(sc.IsActive ? "✔️" : "❌")</td>
+                <td>
+                    <a asp-action="Update" asp-route-id="@sc.Id" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@sc.Id" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

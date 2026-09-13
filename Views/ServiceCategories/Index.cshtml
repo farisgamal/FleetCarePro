@@ -1,0 +1,42 @@
+@model List<ServiceCategory>
+@{
+    ViewData["Title"] = "Service Categories";
+}
+
+<h2>Service Categories</h2>
+
+<div class="row">
+    <div class="col-md-5">
+        <form asp-action="Create" method="post">
+            <div class="mb-3">
+                <label>Category Name</label>
+                <input name="CategoryName" class="form-control" placeholder="e.g. Brakes, Oil Change" />
+            </div>
+            <div class="mb-3">
+                <label>Description</label>
+                <input name="Description" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label>Recommended Interval (months)</label>
+                <input name="RecommendedIntervalMonths" type="number" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-success">Add</button>
+        </form>
+    </div>
+    <div class="col-md-7">
+        <table class="table table-striped">
+            <thead><tr><th>Name</th><th>Description</th><th>Interval (months)</th><th></th></tr></thead>
+            <tbody>
+                @foreach (var c in Model)
+                {
+                    <tr>
+                        <td>@c.CategoryName</td>
+                        <td>@c.Description</td>
+                        <td>@c.RecommendedIntervalMonths</td>
+                        <td><a asp-action="Delete" asp-route-id="@c.Id" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

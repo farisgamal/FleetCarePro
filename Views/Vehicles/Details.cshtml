@@ -1,0 +1,43 @@
+@model Vehicle
+@{
+    ViewData["Title"] = "Vehicle Details";
+}
+
+<h2>@Model.Make @Model.Model (@Model.Year)</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        @if (!string.IsNullOrEmpty(Model.VehicleImageURL))
+        {
+            <img src="@Model.VehicleImageURL" class="img-fluid rounded" alt="@Model.Make" />
+        }
+        else
+        {
+            <div class="bg-light text-center p-5">No Image</div>
+        }
+    </div>
+    <div class="col-md-8">
+        <table class="table">
+            <tr><th>VIN</th><td>@Model.VIN</td></tr>
+            <tr><th>License Plate</th><td>@Model.LicensePlate</td></tr>
+            <tr><th>Status</th><td><span class="badge bg-info">@Model.Status</span></td></tr>
+            <tr><th>Mileage</th><td>@Model.Mileage km</td></tr>
+            <tr><th>Purchase Price</th><td>$@Model.PurchasePrice.ToString("N2")</td></tr>
+        </table>
+
+        <a asp-action="Update" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
+        <a asp-action="Index" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+
+@if (Model.ServiceRecords is not null && Model.ServiceRecords.Any())
+{
+    <h4 class="mt-4">Service History</h4>
+    <ul class="list-group">
+        @foreach (var r in Model.ServiceRecords)
+        {
+            <li class="list-group-item">@r.ServiceDate.ToShortDateString() - $@r.TotalCost.ToString("N2") - @r.Status</li>
+        }
+    </ul>
+}

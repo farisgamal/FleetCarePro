@@ -1,0 +1,21 @@
+@model List<Vehicle>
+
+<div class="card mb-4">
+    <div class="card-header bg-danger text-white">Overdue Maintenance (no service in the last 6 months)</div>
+    <ul class="list-group list-group-flush">
+        @if (!Model.Any())
+        {
+            <li class="list-group-item">All vehicles are up to date, no overdue maintenance 👍</li>
+        }
+        else
+        {
+            foreach (var v in Model)
+            {
+                <li class="list-group-item d-flex justify-content-between">
+                    <span>@v.Make @v.Model - @v.LicensePlate</span>
+                    <a asp-controller="Vehicles" asp-action="Details" asp-route-id="@v.Id">View</a>
+                </li>
+            }
+        }
+    </ul>
+</div>
